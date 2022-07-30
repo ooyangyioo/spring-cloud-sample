@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      password: yangyi126
+      discovery:
+        enabled: true
+        group: SPRING-CLOUD-SAMPLE
+      config:
+        enabled: false

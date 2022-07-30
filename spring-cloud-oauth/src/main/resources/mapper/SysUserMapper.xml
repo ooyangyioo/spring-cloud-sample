@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yangyi.project.oauth.dao.SysUserDao">
+
+    <resultMap id="SysUserResultMap" type="org.yangyi.project.oauth.entity.SysUser">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="enabled" jdbcType="BIT" property="enabled"/>
+        <result column="expired" jdbcType="BIT" property="expired"/>
+        <result column="locked" jdbcType="BIT" property="locked"/>
+        <result column="password_expired" jdbcType="BIT" property="passwordExpired"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <resultMap id="SysUserRoleResultMap" type="org.yangyi.project.oauth.entity.SysUserRole" extends="SysUserResultMap">
+        <collection property="sysRoles" column="{userId = user_id}" ofType="org.yangyi.project.oauth.entity.SysRole"
+                    javaType="ArrayList" select="org.yangyi.project.oauth.dao.SysRoleDao.selectUserRole"/>
+    </resultMap>
+
+    <sql id="SysUserColumnList">
+        user_id
+        , username, password, email, phone, enabled, expired, locked, password_expired, create_time
+    </sql>
+
+    <!-- 查询用户及其角色 -->
+    <select id="selectUserAndRoleByUsername" resultMap="SysUserRoleResultMap">
+        select
+        <include refid="SysUserColumnList"/>
+        from sys_user
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

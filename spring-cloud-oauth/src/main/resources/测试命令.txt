@@ -1,0 +1,33 @@
+curl -X POST "http://192.168.100.92:9090/oauth/token" -d 'grant_type=password&client_id=web&client_secret=123456&username=yangyi&password=yangyi126'
+
+// 密码模式获取Token
+http://127.0.0.1:9000/oauth/token?grant_type=password&client_id=web&client_secret=123456&username=yangyi&password=yangyi126
+// 刷新Token
+http://127.0.0.1:9000/oauth/token?grant_type=refresh_token&client_id=web&client_secret=123456&refresh_token=baf754b2-afcd-4106-80a0-11ff33a4d38a
+// 验证Token
+http://127.0.0.1:9000/oauth/check_token?token=5ec9dc4b-76bb-4348-9c20-2013bebbb5f5
+curl -I -H "Authorization: Bearer 5ec9dc4b-76bb-4348-9c20-2013bebbb5f5" http://192.168.100.58:9000/oauth/check_token?token=5ec9dc4b-76bb-4348-9c20-2013bebbb5f5
+
+http://127.0.0.1:9000/oauth/token_key
+
+授权码模式
+http://localhost:9000/oauth/authorize?response_type=code&client_id=web&redirect_uri=https://www.baidu.com
+http://localhost:9000/oauth/token?client_id=web&grant_type=authorization_code&redirect_uri=https://www.baidu.com&client_secret=123456&code=Exw3Hu
+
+http://localhost:9090/oauth/authorize?response_type=code&client_id=web&redirect_uri=https://www.baidu.com
+http://localhost:9090/oauth/token?client_id=web&grant_type=authorization_code&redirect_uri=https://www.baidu.com&client_secret=123456&code=XA8sYl
+
+curl http://192.168.100.80:9090/api/usr/info?username=yangyi
+curl -X POST http://192.168.100.67:9090/form/token
+curl -I -H "Authorization: Bearer fc7d78ba-5bf8-4898-ad51-de7bd2b9342a" http://192.168.100.80:9090/api/usr/info?username=yangyi
+
+客户端模式
+http://localhost:9000/oauth/token?client_id=web&client_secret=123456&grant_type=client_credentials
+
+简化模式
+http://localhost:9000/oauth/authorize?response_type=token&client_id=web&redirect_uri=https://www.baidu.com
+
+
+/oauth/token : TokenEndpoint
+/oauth/authorize : AuthorizationEndpoint
+/oauth/confirm_access : WhitelabelApprovalEndpoint

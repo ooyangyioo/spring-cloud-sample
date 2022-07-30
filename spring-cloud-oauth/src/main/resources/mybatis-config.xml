@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <plugins>
+        <plugin interceptor="org.yangyi.project.oauth.mybatis.AutoIdInterceptor">
+            <property name="test" value="yy"/>
+        </plugin>
+    </plugins>
+
+    <!--<typeAliases>-->
+    <!--<package name="com.yangyi.project.bean"/>-->
+    <!--</typeAliases>-->
+
+    <!--    <mappers>-->
+    <!--        <mapper url="file:///${project.basedir}/xml/AgentMapper.xml"/>  &lt;!&ndash; 加载JAR包外部的MAPPER XML文件 &ndash;&gt;-->
+    <!--        <mapper url="file:///${project.basedir}/xml/IndustryMapper.xml"/>-->
+    <!--    </mappers>-->
+
+</configuration>

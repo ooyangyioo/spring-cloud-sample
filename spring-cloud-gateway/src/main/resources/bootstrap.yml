@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        register: true
+        heartbeat:
+          enabled: true
+        prefer-ip-address: true
+        service-name: @project.artifactId@
+        health-check-critical-timeout: 20s
+        deregister: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true

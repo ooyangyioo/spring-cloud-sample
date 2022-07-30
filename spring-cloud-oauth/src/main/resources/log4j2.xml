@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <Properties>
+        <Property name="LOG_PATTERN">
+        </Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="[%date{yy-MM-dd HH:mm:ss.SSS}] [%X{X-B3-TraceId},%X{X-B3-SpanId}] [%t] [%-5level] [%l]---> %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="org.yangyi.project.dao" level="TRACE"/>
+        <Logger name="org.springframework" level="WARN"/>
+        <Logger name="org.apache" level="WARN"/>
+        <Logger name="org.hibernate.validator" level="WARN"/>
+        <Logger name="com.zaxxer.hikari" level="WARN"/>
+        <Logger name="com.alibaba" level="WARN"/>
+        <Logger name="org.reflections" level="WARN"/>
+        <Logger name="com.netflix" level="WARN"/>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yangyi.project.oauth.dao.SysRoleDao">
+
+    <resultMap id="SysRoleResultMap" type="org.yangyi.project.oauth.entity.SysRole">
+        <id column="role_id" jdbcType="BIGINT" property="roleId"/>
+        <result column="role_code" jdbcType="VARCHAR" property="roleCode"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="role_desc" jdbcType="VARCHAR" property="roleDesc"/>
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        role_id
+        , role_code, role_name, role_desc
+    </sql>
+
+    <!-- 查询用户拥有的权限列表 -->
+    <select id="selectUserRole" resultMap="SysRoleResultMap">
+        select sr.*
+        from sys_role sr
+                 left join sys_user_role sur on sur.role_id = sr.role_id
+        where sur.user_id = #{userId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByMenuUrl" resultType="String">
+        select sr.role_code
+        from sys_menu sm
+                 left join sys_role_menu srm on srm.menu_id = sm.menu_id
+                 left join sys_role sr on sr.role_id = srm.role_id
+        where sm.menu_url = #{menuUrl,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="org.yangyi.project.oauth.entity.SysRole">
+        insert into sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="roleCode != null">
+                role_code,
+            </if>
+            <if test="roleName != null">
+                role_name,
+            </if>
+            <if test="roleDesc != null">
+                role_desc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                #{roleId,jdbcType=BIGINT},
+            </if>
+            <if test="roleCode != null">
+                #{roleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleDesc != null">
+                #{roleDesc,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateSysRole" parameterType="org.yangyi.project.oauth.entity.SysRole">
+        update sys_role
+        <set>
+            <if test="roleCode != null">
+                role_code = #{roleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="roleName != null">
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleDesc != null">
+                role_desc = #{roleDesc,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where role_id = #{roleId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

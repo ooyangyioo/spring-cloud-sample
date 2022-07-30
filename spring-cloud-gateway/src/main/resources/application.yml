@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: @project.artifactId@
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/db_oauth
+    username: root
+    password: yangyi126
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 开启从注册中心动态创建路由的功能
+          lower-case-service-id: true # 使用小写服务名，默认是大写
+      routes:
+        - id: auth-server
+          uri: lb://spring-cloud-oauth
+          predicates:
+            - Path=/oauth/**, /auth/**
+          filters:
+            - StripPrefix=0 # 匹配请求路径,截取路径的个数
+            - PreserveHostHeader
+      default-filters:
+        - name: Hystrix
+          args:
+            name: default
+            fallbackUri: 'forward:/fallback'
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    password: yangyi126
+    timeout: 10000
+
+  flyway:
+    enabled: false
+
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          jwk-set-uri:
+
+server:
+  servlet:
+    encoding:
+      enabled: true
+      charset: utf-8
+      force: true
+  port: 9080
+
+security:
+  white-list:
+    urls:
+      - "/swagger-ui.html"
+      - "/swagger-resources/**"
+      - "/webjars/**"
+      - "/v2/api-docs"
+      - "/v3/api-docs"
+      - "/*/v2/api-docs"
+      - "/*/v3/api-docs"
+      - "/favicon.ico"
+      - "/actuator/**"
+      - "/oauth/**"
+      - "/auth/**"
