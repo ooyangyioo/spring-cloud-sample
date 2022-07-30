@@ -12,7 +12,7 @@
     <artifactId>spring-cloud-gateway</artifactId>
 
     <properties>
-        <mysql.version>8.0.29</mysql.version>
+        <mysql.version>8.0.30</mysql.version>
     </properties>
 
     <dependencies>

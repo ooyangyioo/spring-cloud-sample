@@ -12,7 +12,7 @@
     <artifactId>spring-cloud-oauth</artifactId>
 
     <properties>
-        <mysql.version>8.0.29</mysql.version>
+        <mysql.version>8.0.30</mysql.version>
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
         <mybatis-generator-maven-plugin.version>1.4.1</mybatis-generator-maven-plugin.version>
     </properties>
@@ -111,6 +111,12 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.10.2</version>
         </dependency>
 
     </dependencies>
